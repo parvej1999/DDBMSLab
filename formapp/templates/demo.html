@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<title>Connect Demo
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</title>
+
+<body>
+<p>Demo For DB Connection</p>
+<form method="POST" id="firstForm" action="{% url 'form' %}">
+    {% csrf_token %}
+
+    <label for="fname">First name:</label>
+    <input type="text" id="fname" name="fname"><br><br>
+    <label for="lname">Last name:</label>
+    <input type="text" id="lname" name="lname"><br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+
+</body>
+</html>
