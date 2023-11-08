@@ -19,6 +19,7 @@
           <div class="panel-body">
             <form  method="post" action="{% url 'form' %}">
               {% csrf_token %}
+            <input type="hidden" name="create" value="create" >
               <div class="form-group">
                 <label for="firstName">First Name</label>
                 <input
@@ -100,21 +101,15 @@
       </div>
     </div>
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-header">
-    <img src="..." class="rounded mr-2" alt="...">
-    <strong class="mr-auto">Bootstrap</strong>
-    <small>11 mins ago</small>
-    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
+ 
   <!-- accordion Collapsible -->
   
 {% if objects %}
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
+        <th scope="col"># </th>
+        <th scope="col">ID </th>
         <th scope="col">First Name</th>
         <th scope="col">Last Name</th>
         <th scope="col">Gender</th>
@@ -126,6 +121,7 @@
     <tbody>
       {% for data in objects %}
       <tr>
+        <th scope="row">{{forloop.counter}}</th>
         <th scope="row">{{data.id}}</th>
         <td>{{data.firstName}}</td>
         <td>{{data.lastName}}</td>
@@ -133,16 +129,84 @@
         <td>{{data.email}}</td>
         <td>{{data.phnumber}}</td>
         <td>
-          <form action="" method="post">
+          <form action="{% url 'form' %}" method="post">
             {% csrf_token %}
-          <button type="button" class="btn btn-danger">Delete</button>
+            <input type="hidden" name="delete" value="delete" >
+            <input type="hidden" name="instance_id" value="{{data.id}}" >
+            
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
           </form>
+        </td>
+        <td>
+             
+          
           
 
-        </td>
         
         
-        
+        <!-- Update -->
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalCenter">Edit</button>
+
+        <!-- Modal -->
+        <div class="modal fade modal-dialog-centered" id="exampleModalCenter" role="dialog">
+          <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <p class="modal-title">Update</p>
+              </div>
+              <div class="modal-body">
+                <form  method="post" action="{% url 'form' %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="update" value="update" >
+                  <input type="hidden" name="update_id" value="{{data.id}}" >
+                  <div class="form-group row">
+                    <label for="fname" class="col-sm-2 col-form-label">First Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="fname" id="lname" value="{{data.firstName}}" placeholder="Last Name">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lname" class="col-sm-2 col-form-label">Last Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" name="lname" id="lname" value="{{data.lastName}}" placeholder="Last Name">
+                    </div>
+                  </div>
+                  
+                  
+                
+                <div class="form-group row">
+                  <label for="email" class="col-sm-2 col-form-label">Email</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="email" id="email" value="{{data.email}}" placeholder="Email">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="password" class="col-sm-2 col-form-label">Password</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" name="password" id="password" value="{{data.password}}" placeholder="Password">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="phnumber" class="col-sm-2 col-form-label">Phone Number</label>
+                  <div class="col-sm-10">
+                    <input type="number" class="form-control" name="number" id="phnumber" value="{{data.phnumber}}" placeholder="Phone Number">
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+
+                </form>
+              </div>
+              
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </tr>
       {% endfor %}
      
