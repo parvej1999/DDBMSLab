@@ -1,0 +1,14 @@
+ const collapse = document.getElementsByClassName("collpasible-btn");
+  Array.from(collapse).forEach(element => {
+    element.addEventListener("click", function (){
+        idNode = element.previousElementSibling.innerHTML;
+        $.ajax({
+          type:"POST",
+          url:"{% url 'blogs:allFeedback' %}",
+          data:{
+            id:idNode,
+            csrfmiddlewaretoken:"{{csrf_token}}",
+          }
+        })
+    })
+  })

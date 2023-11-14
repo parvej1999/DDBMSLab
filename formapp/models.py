@@ -8,6 +8,7 @@ class demoForm(models.Model):
     email = models.EmailField(max_length = 256)
     password = models.CharField(max_length = 50)
     phnumber = models.CharField(max_length = 13)
+    createTime = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
         return self.firstName+str(self.id)
